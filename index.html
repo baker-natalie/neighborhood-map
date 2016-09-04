@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Rainfall and Flooding | Houston, TX</title>
+	<!-- CSS styles -->
+    <style type="text/css">
+    	html,
+    	body {
+        	font-family: Arial, sans-serif;
+        	height: 100%;
+        	margin: 0;
+        	padding: 0;
+      	}
+      	#map {
+        	height: 100%;
+      	}
+   </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script type="text/javascript">
+    	var map;
+    	var marker;
+    	var markers = [];
+    	function initMap() {
+    		            var styles = [
+                {
+                    featureType: 'water',
+                    stylers: [
+                        { color: '#0066ff' }
+                    ]
+                },{
+                    featureType: 'road.highway',
+                    elementType: 'geometry.stroke',
+                    stylers: [
+                        { color: '#cc0044'}
+                    ]
+                }
+            ]
+            map = new google.maps.Map(document.getElementById('map'), {
+            	center: {lat: 29.762778, lng: -95.383056},
+            	zoom: 15,
+            	styles: styles,
+            });
+            // location latLng data was calculated at http://www.latlong.net
+            var locations = [
+            	{
+            		title: 'Blue Bell Plaza',
+            		location: { lat: 29.904479, lng: -95.418485 },
+            		info: '12 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Greenbiar Colony',
+            		location: { lat: 29.945334, lng: -95.364772 },
+            		info: '50 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Greens Road Mobile Home Community',
+            		location: { lat: 29.950976, lng: -95.369942 },
+            		info: '61 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Northline Terrace',
+            		location: { lat: 29.891350, lng: -95.403120 },
+            		info: '121 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'W L Hill',
+            		location: { lat: 29.895843, lng: -95.392786 },
+            		info: '4 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Airial',
+            		location: { lat: 29.891540, lng: -95.392709 },
+            		info: '3 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Bishop Ct',
+            		location: { lat: 29.894787, lng: -95.382507 },
+            		info: '3 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Castlewood',
+            		location: { lat: 29.913649, lng: -95.344855 },
+            		info: '12 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Parkwood Estates',
+            		location: { lat: 29.919861, lng: -95.310542 },
+            		info: '3 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Sequoia Estates',
+            		location: { lat: 29.924250, lng: -95.313795 },
+            		info: '6 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Town of Aldine',
+            		location: { lat: 29.926357, lng: -95.383386 },
+            		info: '5 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Amesbury Park',
+            		location: { lat: 29.829666, lng: -95.680599 },
+            		info: '2 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Amhurst Sec 18',
+            		location: { lat: 29.594672, lng: -95.646572 },
+            		info: '17 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Barwood',
+            		location: { lat: 29.940382, lng: -95.617398 },
+            		info: '30 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Cimarron',
+            		location: { lat: 29.769076, lng: -95.755291 },
+            		info: '2 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Cypress Fields',
+            		location: { lat: 30.003340, lng: -95.681597 },
+            		info: '17 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Cypress Place',
+            		location: { lat: 29.952152, lng: -95.588685 },
+            		info: '12 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Deerfield Village',
+            		location: { lat: 29.833392, lng: -95.680029 },
+            		info: '4 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Houston Hot Wells',
+            		location: { lat: 29.949368, lng: -95.681584 },
+            		info: '53 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Longwood Trace',
+            		location: { lat: 29.985041, lng: -95.645393 },
+            		info: '36 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Memorial Parkway',
+            		location: { lat: 29.771841, lng: -95.746589 },
+            		info: '1 home damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Mossy Oak Estates',
+            		location: { lat: 29.947471, lng: -95.596211 },
+            		info: '35 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Northlake Forest',
+            		location: { lat: 29.983849, lng: -95.664702 },
+            		info: '24 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Nottingham Country',
+            		location: { lat: 29.762990, lng: -95.728055 },
+            		info: '2 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Ranch Country',
+            		location: { lat: 30.023012, lng: -95.801030 },
+            		info: '11 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Ravensway',
+            		location: { lat: 29.955557, lng: -95.623450 },
+            		info: '17 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Riata Ranch',
+            		location: { lat: 29.937779, lng: -95.674365 },
+            		info: '18 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Ricewood Village',
+            		location: { lat: 29.842022, lng: -95.719922 },
+            		info: '2 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Settlers Village',
+            		location: { lat: 29.876883, lng: -95.734000 },
+            		info: '1 home damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Sommerhall Sec 14',
+            		location: { lat: 29.885169, lng: -95.663528 },
+            		info: '14 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Stablewood Farms',
+            		location: { lat: 30.002160, lng: -95.670606 },
+            		info: '24 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Stone Lake',
+            		location: { lat: 30.061839, lng: -95.732964 },
+            		info: '2 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Timberlake Estates',
+            		location: { lat: 29.954247, lng: -95.618197 },
+            		info: '28 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Tower Oaks Meadows',
+            		location: { lat: 29.946427, lng: -95.604549 },
+            		info: '51 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}/*, {
+            		title: 'Village of New Kentucky',
+            		location: { lat: #, lng: # },
+            		info: '2 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Waynewood Place',
+            		location: { lat: #, lng: # },
+            		info: '7 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Westlake',
+            		location: { lat: #, lng: # },
+            		info: '3 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Westlake Forest',
+            		location: { lat: #, lng: # },
+            		info: '3 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Westlake Place',
+            		location: { lat: #, lng: # },
+            		info: '10 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'White Oaks Falls Sec 4',
+            		location: { lat: #, lng: # },
+            		info: '16 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Alton Theiss Addition',
+            		location: { lat: #, lng: # },
+            		info: '3 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Bear Creek',
+            		location: { lat: #, lng: # },
+            		info: '262 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Briar Creek',
+            		location: { lat: #, lng: # },
+            		info: '3 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Bridgestone Lakes',
+            		location: { lat: #, lng: # },
+            		info: '9 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Copper Creek',
+            		location: { lat: #, lng: # },
+            		info: '4 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Creekwood Acres',
+            		location: { lat: #, lng: # },
+            		info: '8 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Cutten Green',
+            		location: { lat: #, lng: # },
+            		info: '2 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Enchanted Oaks',
+            		location: { lat: #, lng: # },
+            		info: '1 home damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Fairfax',
+            		location: { lat: #, lng: # },
+            		info: '11 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Fallbrook',
+            		location: { lat: #, lng: # },
+            		info: '30 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Forest Lakes',
+            		location: { lat: #, lng: # },
+            		info: '4 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Forest Shadows',
+            		location: { lat: #, lng: # },
+            		info: '1 home damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Forestwood 1',
+            		location: { lat: #, lng: # },
+            		info: '5 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Foxwood',
+            		location: { lat: #, lng: # },
+            		info: '1 home damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Georgetown Colony',
+            		location: { lat: #, lng: # },
+            		info: '58 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Glencairon',
+            		location: { lat: #, lng: # },
+            		info: '11 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Greenfield Village',
+            		location: { lat: #, lng: # },
+            		info: '2 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Greengate Place',
+            		location: { lat: #, lng: # },
+            		info: '4 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Greenwood Forest',
+            		location: { lat: #, lng: # },
+            		info: '4 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Hearthstone',
+            		location: { lat: #, lng: # },
+            		info: '149 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Hearthstone Meadows/Private',
+            		location: { lat: #, lng: # },
+            		info: '30 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Highland Creek Village',
+            		location: { lat: #, lng: # },
+            		info: '1 home damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}*/, {
+            		title: 'Kenswick',
+            		location: { lat: 30.026582, lng: -95.301348 },
+            		info: '5 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'North Hill Estates',
+            		location: { lat: 30.048908, lng: -95.421447 },
+            		info: '15 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Northglen',
+            		location: { lat: 29.871457, lng: -95.671275 },
+            		info: '1 home damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Post Wood',
+            		location: { lat: 30.043636, lng: -95.341231 },
+            		info: '6 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Riverwood',
+            		location: { lat: 29.902948, lng: -95.298561 },
+            		info: '1 home damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Savannah Estates',
+            		location: { lat: 29.857483, lng: -95.631428 },
+            		info: '81 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Suburban Ranches',
+            		location: { lat: 30.103192, lng: -95.558521 },
+            		info: '13 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Turtle Lake',
+            		location: { lat: 29.654400, lng: -95.141365 },
+            		info: '38 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Villages of Langham Creek',
+            		location: { lat: 29.861575, lng: -95.658459 },
+            		info: '63 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Villages of Northpointe Sec 3',
+            		location: { lat: 29.860165, lng: -95.665171 },
+            		info: '3 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Westminster Village',
+            		location: { lat: 29.860165, lng: -95.665171 },
+            		info: '1 home damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Willow Forest',
+            		location: { lat: 30.096277, lng: -95.542714 },
+            		info: '3 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Woodland Oaks Sec 2',
+            		location: { lat: 29.889492, lng: -95.510868 },
+            		info: '36 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Yorktown Villas',
+            		location: { lat: 29.865895, lng: -95.648596 },
+            		info: '108 homes damaged',
+            		tags: [ 'Property Damage', 'Subdivision' ]
+            	}, {
+            		title: 'Terri Rodriguez',
+            		location: { lat: 30.030832, lng: -95.395458 },
+            		info: 'mom of 3',
+            		tags: []
+            	}, {
+            		title: 'Pedro Morales',
+            		location: { lat: 29.753187, lng: -95.558779 },
+            		info: '61, truck driver',
+            		tags: []
+            	}, {
+            		title: 'Charles Odum',
+            		location: { lat: 29.890186, lng: -95.983473 },
+            		info: '7th grade teacher',
+            		tags: []
+            	}, {
+            		title: 'Sunita Singh',
+            		location: { lat: 29.727737, lng: -95.460189 },
+            		info: 'mom of 2',
+            		tags: []
+            	}, {
+            		title: 'Suresh Talluri',
+            		location: { lat: 29.727842, lng: -95.460189 },
+            		info: '36, father of 2',
+            		tags: []
+            	}, {
+            		title: 'German Antonio Franco',
+            		location: { lat: 29.975830, lng: -95.408068 },
+            		info: '66, father of 3',
+            		tags: []
+            	}, {
+            		title: 'Claudia Melgar',
+            		location: { lat: 29.729616, lng: -95.461800 },
+            		info: '25',
+            		tags: []
+            	}
+            ];
+            var largeInfowindow = new google.maps.InfoWindow();
+            var bounds = new google.maps.LatLngBounds();
+            for (var i = 0; i < locations.length; i++) {
+            	var position = locations[i].location;
+            	var title = locations[i].title;
+            	var info = locations[i].info;
+            	marker = new google.maps.Marker({
+            		map: map,
+            		position: position,
+            		title: title,
+            		info: info,
+            		animation: google.maps.Animation.DROP,
+            		id: i
+            	});
+            	markers.push(marker);
+            	marker.addListener('click', function() {
+            		populateInfoWindow(this, largeInfowindow);
+            		toggleBounce();
+            	});
+            	//marker.addListener('click', toggleBounce);
+            	bounds.extend(markers[i].position);
+            }
+            map.fitBounds(bounds);
+    	}
+    	function populateInfoWindow(marker, infowindow) {
+    		if (infowindow.marker != marker) {
+    			infowindow.marker = marker;
+    			infowindow.setContent('<div><h3>' + marker.title + '</h3>' + '<p>' + marker.info + '</p></div>');
+    			infowindow.open(map, marker);
+    			infowindow.addListener('closeClick', function() {
+    				infowindow.setMarker(null);
+    			});
+    		}
+    	}
+    	function toggleBounce() {
+    		if (marker.getAnimation() !== null) {
+    			marker.setAnimation(null);
+    		} else {
+    			marker.setAnimation(google.maps.Animation.BOUNCE);
+    		}
+    	}
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyAwYUgFAZRmyKAsqaKJdN7bT5kvFn7Pd3c&callback=initMap"></script>
+</body>
+</html>
