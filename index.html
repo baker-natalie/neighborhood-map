@@ -1,147 +1,251 @@
+<!DOCTYPE html>
 <html>
 <head>
     <!-- CSS styles -->
     <title>Houston Museums</title>
-    <style type="text/css"> html, body { font-family: Arial, sans-serif; height: 100%; margin: 0; padding: 0; } .container { height: 100%; position: relative; } input { font-size: 12px; } h1 { color: #525454; font-size: 22px; margin: 0 0 10px 0; text-align: center; } #map { bottom: 0px; height: 100%; left: 362px; position: absolute; right: 0px; } .options-box { background: #fff; border: 1px solid #999; border-radius: 3px; height: 100%; line-height: 35px; padding: 10px 10px 30px 10px; text-align: left; width: 340px; }
+    <style type="text/css"> html, body { font-family: Arial, sans-serif; height: 100%; margin: 0; padding: 0; } .container { height: 100%; position: relative; } #locations-list { padding: 0; list-style-type: none; } a { text-decoration: none; color: #000000;} input { font-size: 12px; } h1 { color: #000000; font-size: 22px; margin: 0 0 10px 0; text-align: center; } #map { bottom: 0px; height: 100%; left: 362px; position: absolute; right: 0px; } .options-box { overflow: scroll; background: #fff; border: 1px solid #999; border-radius: 3px; height: 100%; line-height: 35px; padding: 10px 10px 30px 10px; text-align: left; width: 340px; }        /* Dropdown Button */
+.dropbtn {
+    background-color: #0066ff;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5%;
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #ffff33;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}
+#myDropdown,
+#locations-list {
+    padding: 0;
+    list-style-type: none;
+}
     </style>
     <script src="js/knockout.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
 </head>
 <body>
     <div class="container">
-    	<div class="options-box">
-    		<h1>Find a Museum in Houston!</h1><hr>
-    		<div>
-    			<!--<input data-bind="value: search" /><button id="search-button" type="button">Search</button>--><hr>
-                <ul id="locations-list" data-bind="template: { name: 'profileListTemplate', foreach: locationsList }">
-                    <script type="text/html" id="profileListTemplate">
-                        <li id="locations-list-item"><strong data-bind="text: $data"></strong><hr></li>
-                    </script>
+        <div class="options-box">
+            <h1>Find a Museum in Houston!</h1><hr>
+            <div>
+                <div class="dropdown">
+                    <button onclick="myFunction()" class="dropbtn">Filter by Tag!</button>
+                    <ul id="myDropdown" class="dropdown-content" data-bind="foreach: searchableTags">
+                        <li><a href="#" data-bind="text= $data"></a><hr></li>
+                    </ul>
+                </div><hr>
+                <ul id="locations-list" data-bind="foreach: museums">
+                    <li id="locations-list-item"><a href="#"><strong data-bind="text: title"></strong></a><hr></li>
                 </ul>
-    		</div>
-    	</div>
+            </div>
+        </div>
     </div>
     <div id="map"></div>
     <script>
-        // Create a global variable to represent the map
-   	    var map;
-        // Create a blank array for the locations we want to use
-        var locations = [];
-        // Create a blank array for the markers we want shown on the map
-   		var markers = [];
-        var marker;
-        // Create a blank array for the list we want shown in the search pane
-        var list = [];
-        // Create a blank array for the styles we want to apply to the map
-        var styles = [];
-        // Create the data Model to store information manipulated by the view model and displayed in the views
-        var Model = {
-            locations: [
-                {title: 'Asia Society Texas Center', location: {lat: 29.726287, lng: -95.384678, tags: [ 'culture', 'art', 'history', 'education' ]}},
-                {title: 'Buffalo Soldiers Museum', location: {lat: 29.735910, lng: -95.378052}, tags: [ 'military', 'history', 'culture', 'education' ]},
-                {title: 'Childrens Museum of Houston', location: {lat: 29.722793, lng: -95.385225}, tags: [ 'family', 'science', 'education' ]},
-                {title: 'Contemporary Arts Museum Houston', location: {lat: 29.726333, lng: -95.391465}, tags: [ 'art' ]},
-                {title: 'Czech Center Museum Houston', location: {lat: 29.728954, lng: -95.384915}, tags: [ 'culture', 'history', 'education' ]},
-                {title: 'DiverseWorks', location: {lat: 29.740289, lng: -95.378852}, tags: [ 'art', 'education' ]},
-                {title: 'Holocaust Museum Houston', location: {lat: 29.725153, lng: -95.385660}, tags: [ 'history', 'education' ]},
-                {title: 'Houston Center for Contemporary Craft', location: {lat: 29.730541, lng: -95.386025}, tags: [ 'art', 'education' ]},
-                {title: 'Houston Center for Photography', location: {lat: 29.738381, lng: -95.397273}, tags: [ 'art' ]},
-                {title: 'Houston Museum of African American Culture', location: {lat: 29.729538, lng: -95.382399}, tags: [ 'history', 'education', 'culture' ]},
-                {title: 'Houston Museum of Natural Science', location: {lat: 29.721802, lng: -95.389942}},
-                {title: 'Houston Zoo', location: {lat: 29.716094, lng: -95.390114}},
-                {title: 'Lawndale Art Center', location: {lat: 29.729880, lng: -95.386574}},
-                {title: 'Rice Gallery', location: {lat: 29.718329, lng: -95.397927}},
-                {title: 'Rothko Chapel', location: {lat: 29.737624, lng: -95.396166}},
-                {title: 'The Health Museum', location: {lat: 29.721698, lng: -95.386011}},
-                {title: 'The Jung Center', location: {lat: 29.726789, lng: -95.391392}},
-                {title: 'The Menil Collection', location: {lat: 29.737368, lng: -95.398521}},
-                {title: 'The Museum of Fine Arts Houston', location: {lat: 29.725798, lng: -95.390424}}
-            ],
-            styles: [
-                {featureType: 'water', stylers: [{ color: '#0066ff' }]},
-                {featureType: 'road.highway', elementType: 'geometry.stroke', stylers: [{ color: '#cc0044'}]}
-            ] 
-        }
-        // Create the map!
-        /*var octopus = {
-            init: function() {
-                mapView.init(),
-                listView.init(),
-            }
+    "use strict";
 
-        }*/
-       //var locationsList = ko.observableArray(Model.locations);
-       // console.log(locationsList);
+// Start by creating the map
+var map;
+var showMapMessage = ko.observable(false);
+var viewModel;
 
-      /* var viewModel = {
-            locationsList: ko.observableArray(locations)
-        };
-        ko.applyBindings(new viewModel);*/
+function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 29.727697, lng: -95.388801},
+        zoom: 14,
+        styles: [
+            {featureType: 'water', stylers: [{ color: '#0066ff' }]},
+            {featureType: 'road.highway', elementType: 'geometry.stroke', stylers: [{ color: '#cc0044'}]},
+            {featureType: 'road.highway', elementType: 'geometry.fill', stylers: [{ color: '#ffff33' }]}
+         ] 
+    });
 
-        /*var mapView = {
-            init: function() {
+    // Initialize new ViewModel after map loads
+    ko.applyBindings(new viewModel());
+}
 
-            }
-        }*/
-        var defaultIcon;
-        var highlightedIcon;
-     	function initMap() {
+// error message
+function googleError() {
+    showMapMessage(true);
+}
 
-            // Constructor creates a new map
-     		map = new google.maps.Map(document.getElementById('map'), {
-     			center: {lat: 29.762778, lng: -95.383056},
-	     		zoom: 11,
-                styles: Model.styles
-     		});
-     		var largeInfowindow = new google.maps.InfoWindow();
-            var bounds = new google.maps.LatLngBounds();
-            defaultIcon = makeMarkerIcon('cc0044');
-            highlightedIcon = makeMarkerIcon('0066ff');
-            // Loop over all locations and create a marker and infowindow for each
-     		for (var i = 0; i < Model.locations.length; i++) {
-     			var position = Model.locations[i].location;
-     			var title = Model.locations[i].title;
-     			var marker = new google.maps.Marker({
-     				map: map,
-     				position: position,
-     				title: title,
-     				animation: google.maps.Animation.DROP,
-                    icon: defaultIcon,
-     				id: i                    
-     			});
-     			markers.push(marker);
-                marker.addListener('click', function() {
-                    populateInfoWindow(this, largeInfowindow);
+// ***MODEL*** //
+var locations = [
+    {title: 'Asia Society Texas Center', lat: 29.726287, lng: -95.384678, tags: [ 'culture', 'art', 'history', 'education' ]},
+    {title: 'Buffalo Soldiers Museum', lat: 29.735910, lng: -95.378058, tags: [ 'military', 'history', 'culture', 'education' ]},
+    {title: 'Childrens Museum of Houston', lat: 29.722793, lng: -95.385225, tags: [ 'family', 'science', 'education' ]},
+    {title: 'Contemporary Arts Museum Houston', lat: 29.726333, lng: -95.391465, tags: [ 'art' ]},
+    {title: 'Czech Center Museum Houston', lat: 29.728954, lng: -95.384915, tags: [ 'culture', 'history', 'education' ]},
+    {title: 'DiverseWorks', lat: 29.740289, lng: -95.378852, tags: [ 'art', 'education' ]},
+    {title: 'Holocaust Museum Houston', lat: 29.725153, lng: -95.385660, tags: [ 'history', 'education' ]},
+    {title: 'Houston Center for Contemporary Craft', lat: 29.730541, lng: -95.386025, tags: [ 'art', 'education' ]},
+    {title: 'Houston Center for Photography', lat: 29.738381, lng: -95.397273, tags: [ 'art' ]},
+    {title: 'Houston Museum of African American Culture', lat: 29.729538, lng: -95.382399, tags: [ 'history', 'education', 'culture' ]},
+    {title: 'Houston Museum of Natural Science', lat: 29.721802, lng: -95.389942, tags: [ 'history', 'education', 'culture' ]},
+    {title: 'Houston Zoo', lat: 29.716094, lng: -95.390114, tags: [ 'nature', 'science', 'family' ]},
+    {title: 'Lawndale Art Center', lat: 29.729880, lng: -95.386574, tags: [ 'art', 'education' ]},
+    {title: 'Rice Gallery', lat: 29.718329, lng: -95.397927, tags: [ 'art', 'education' ]},
+    {title: 'Rothko Chapel', lat: 29.737624, lng: -95.396166, tags: [ 'art', 'culture' ]},
+    {title: 'The Health Museum', lat: 29.721698, lng: -95.386011, tags: [ 'science', 'family' ]},
+    {title: 'The Jung Center', lat: 29.726789, lng: -95.391392, tags: [ 'art', 'culture', 'science', 'education' ]},
+    {title: 'The Menil Collection', lat: 29.737368, lng: -95.398521, tags: [ 'art', 'culture' ]},
+    {title: 'The Museum of Fine Arts Houston', lat: 29.725798, lng: -95.390424, tags: [ 'art', 'culture', 'history', 'education' ]}
+];
+
+// ***CONSTRUCT A MUSEUM OBJECT*** //
+var Museum = function(data) {
+    var self = this;
+    self.address = ko.observable('');
+    self.phone = ko.observable('');
+    self.lat = ko.observable(data.lat);
+    self.lng = ko.observable(data.lng);
+    self.marker = ko.observable();
+    self.title = ko.observable(data.title);
+    self.url = ko.observable('');
+    self.windowData = ko.observable('');
+};
+
+// ***VIEW MODEL*** //
+var viewModel = function() {
+    // declare variables that will be used in the view model
+    var self = this;
+    var defaultIcon = makeMarkerIcon('cc0044');
+    var highlightedIcon = makeMarkerIcon('0066ff');
+    var infowindow = new google.maps.InfoWindow;
+    var location;
+    var marker;
+    var tagSearch;
+    var venue;
+
+    self.museums = ko.observableArray([]);
+    self.showMessage = ko.observable(false);
+
+    locations.forEach(function(museum) {
+        self.museums.push(new Museum(museum));
+    });
+    self.museums().forEach(function (museum) {
+        // create markers
+        marker = new google.maps.Marker({
+            position: new google.maps.LatLng(museum.lat(), museum.lng()),
+            map: map,
+            icon: defaultIcon,
+            animation: google.maps.Animation.DROP
+        });
+        museum.marker = marker;
+        // retrieve FourSquare data
+        $.ajax({
+            dataType: "json",
+            url: 'https://api.foursquare.com/vs/venues/search?ll=' + self.lat + ',' + self.Lng + '&limit=1&intent=matc&client_id=IYJMCZI2SCTQAB1VFFGU0VAMPYCJTESA25S2UYIQFVDSYEPE&client_secret=0EORMDPEF4122UUV0FYBVEYMW5NOXNU4AZKT5B51NJWVKAND&v=20130815',
+            async: true,
+            success: function (data) {
+                venue = data.response.hasOwnProperty("venues") ? data.response.venuse[0] : '';
+                location = venue.hasOwnProperty('location') ? venue.location : '';
+                    if (location.hasOwnProperty('formattedAddress')) {
+                        museum.address(location.formattedAddress || '');
+                    }
+                contact = data.response.hasOwnProperty('contact') ? venue.location : '';
+                    if (contact.hasOwnProperty('formattedPhone')) {
+                        museum.phone(contact.formattedPhone || '');
+                    }
+                url = venue.hasOwnProperty('url') ? venue.url : '';
+                    museum.url(url || '');
+
+                // create HTML infoWindow content
+                museum.windowData = '<div><h1>' + museum.title + '</h1><p>' + museum.phone + '</p><p>' + museum.address + '</p><p>' + museum.url + '</p></div>';
+                // create infoWindows
+                museum.marker.addListener('click', function() {
+                    infowindow.open(map, this);
+                    museum.marker.setIcon(highlightedIcon);
+                    museum.marker.setAnimation(google.maps.Animation.BOUNCE);
+                    setTimeout(function() {
+                        museum.marker.setAnimation(null);
+                        museum.marker.setIcon(defaultIcon)
+                    }, 2000);
+                    infowindow.setContent(museum.windowData);
                 });
-
-                bounds.extend(markers[i].position);
+            },
+            error: function(e) {
+                infowindow.setContent('<p>There was an error<br> retrieving FourSquare data.');
+                    self.showMessage(true);
             }
-            map.fitBounds(bounds);
-     	}
-        // When the marker click event fires, populateInfoWindow creates a window with information about the selected marker location
-     	function populateInfoWindow(marker, infowindow) {
-     		if (infowindow.marker != marker) {
-     			infowindow.marker = marker;
-     			infowindow.setContent('<div>' + marker.title + '</div>')
-     			infowindow.open(map, marker);
-                marker.setIcon(highlightedIcon);
-                marker.setAnimation(google.maps.Animation.BOUNCE);
-     			infowindow.addListener('closeclick', function(){
-     				infowindow.marker = null;
-                    marker.setIcon(defaultIcon);
-                    marker.setAnimation(null);
-     			});
-       		}
-     	}
-        function makeMarkerIcon(markerColor) {
-            var markerImage = new google.maps.MarkerImage(
-                'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|'+ markerColor +
+        });
+        marker.addListener('click', function() {
+            infowindow.open(map, this);
+            museum.marker.setIcon(highlightedIcon);
+            museum.marker.setAnimation(google.maps.Animation.BOUNCE);
+            setTimeout(function () {
+                museum.marker.setAnimation(null);
+                museum.marker.setIcon(defaultIcon);
+            }, 2000);
+        });
+    });
+
+    self.showInfo = function(museum) {
+        google.maps.event.trigger(museum.marker, 'click');
+    }
+    // When the user clicks on the button, toggle between hiding and showing the dropdown content 
+    function myFunction() {
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
+
+    // Close the dropdown menu if the user clicks outside of it
+    window.onclick = function(event) {
+        if (!event.target.matches('.dropbtn')) {
+
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+    function makeMarkerIcon(markerColor) {
+        var markerImage = new google.maps.MarkerImage(
+            'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|'+ markerColor +
                 '|40|_|%E2%80%A2',
-                new google.maps.Size(21, 34),
-                new google.maps.Point(0, 0),
-                new google.maps.Point(10, 34),
-                new google.maps.Size(21,34))
+            new google.maps.Size(21, 34),
+            new google.maps.Point(0, 0),
+            new google.maps.Point(10, 34),
+            new google.maps.Size(21,34))
             return markerImage;
         }
+    }
     </script>
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwYUgFAZRmyKAsqaKJdN7bT5kvFn7Pd3c&v=3&callback=initMap"></script>
 
