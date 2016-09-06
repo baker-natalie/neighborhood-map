@@ -23,7 +23,7 @@
   - App should utilize Google Maps API and at least one non-Google third-party API.
   - All data requests should be retrieved in an asynchronous manner.
   - Failed data requests should be handled gracefully using common fallback techniques. There should be some visible indication that it didn't load.
-- **Location Details Functionality
+- **Location Details Functionality**
   - Addition data about locations should be provided and sourced from a 3rd party API. Information can be provided in the marker's infoWindow, or an HTML element in the DOM.
   - Provide attribution for additional data. Indicate your use of the API somewhere in the UI and in the README.
   - App runs without errors.
