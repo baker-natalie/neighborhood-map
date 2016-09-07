@@ -1,4 +1,4 @@
-# Houston Museum Finder
+# HouMuse- Houston Museum Finder
 ### This app is being built for project 5 of Udacity's Front-End Developer Nanodegree
 
 ## Project Requirements
