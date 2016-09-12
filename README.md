@@ -1,5 +1,5 @@
 # HouMuse- Houston Museum Finder
-### This app is being built for project 5 of Udacity's Front-End Developer Nanodegree
+### This app was built for project 5 of Udacity's Front-End Developer Nanodegree
 A neighborhood map built with [Google Maps](https://developers.google.com/maps/documentation/) that shows selected locations of interest. The locations should be filterable, and each location should display information pulled from a third-party API. HouMuse proudly draws data from the [FourSquare](https://developer.foursquare.com/overview/) API. 
 ## Getting Started
 **Run it locally**: clone/download this repository. Open index.html in your browser.
@@ -58,3 +58,7 @@ A neighborhood map built with [Google Maps](https://developers.google.com/maps/d
   - Style different markers in different (and functionally-useful) ways.
   - Implement additional optimizations that improve performance and UX of the filter functionality.
   - Integrate all app components into a cohesive and enjoyable user experience.
+
+##Future Functionality
+- Filter locations by tag
+- Itenerary planner
