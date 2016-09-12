@@ -15,6 +15,8 @@ A neighborhood map built with [Google Maps](https://developers.google.com/maps/d
 - [KnockoutJS Documentation](http://http://knockoutjs.com/documentation/introduction.html)
 - [FourSquare get venue- StackOverflow](http://stackoverflow.com/questions/9090743/foursquare-getting-and-displaying-venues-in-browser)
 - [jQuery.ajax()](http://api.jquery.com/jquery.ajax/)
+- [Setting CSS Styles Using JavaScript- Kirupa](https://www.kirupa.com/html5/setting_css_styles_using_javascript.htm)
+- [Toggle Visibility - Show/Hide Anything- Movalog](http://blog.movalog.com/a/javascript-toggle-visibility/)
 
 ## Project Requirements
 - **Interface Design**
