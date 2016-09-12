@@ -1,5 +1,20 @@
 # HouMuse- Houston Museum Finder
 ### This app is being built for project 5 of Udacity's Front-End Developer Nanodegree
+A neighborhood map built with [Google Maps](https://developers.google.com/maps/documentation/) that shows selected locations of interest. The locations should be filterable, and each location should display information pulled from a third-party API. HouMuse proudly draws data from the [FourSquare](https://developer.foursquare.com/overview/) API. 
+## Getting Started
+**Run it locally**: clone/download this repository. Open index.html in your browser.
+
+**See it live**: [HouMuse]()
+
+## Resources
+- [JavaScript Design Patterns course](https://www.udacity.com/course/javascript-design-patterns--ud989)
+- [Google Maps APIs course](https://www.udacity.com/course/google-maps-apis--ud864)
+- [Overflow scroll- CSS-trickscom](http://www.css-tricks.com/topic/why-no-scroll-bar-when-using-a-div-within-a-div/)
+- [Google Maps Styling Wizard](http://googlemaps.github.io/js-samples/styledmaps/wizard/index.html)
+- [Link to Directions from Google Maps- Gearside.com](https://gearside.com/easily-link-to-locations-and-directions-using-the-new-google-maps/)
+- [KnockoutJS Documentation](http://http://knockoutjs.com/documentation/introduction.html)
+- [FourSquare get venue- StackOverflow](http://stackoverflow.com/questions/9090743/foursquare-getting-and-displaying-venues-in-browser)
+- [jQuery.ajax()](http://api.jquery.com/jquery.ajax/)
 
 ## Project Requirements
 - **Interface Design**
