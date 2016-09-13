@@ -17,6 +17,7 @@ A neighborhood map built with [Google Maps](https://developers.google.com/maps/d
 - [jQuery.ajax()](http://api.jquery.com/jquery.ajax/)
 - [Setting CSS Styles Using JavaScript- Kirupa](https://www.kirupa.com/html5/setting_css_styles_using_javascript.htm)
 - [Toggle Visibility - Show/Hide Anything- Movalog](http://blog.movalog.com/a/javascript-toggle-visibility/)
+- [Handling Google Maps in Async and Fallback- Udacity Forums](https://discussions.udacity.com/t/handling-google-maps-in-async-and-fallback/34282)
 
 ## Project Requirements
 - **Interface Design**
