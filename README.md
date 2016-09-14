@@ -1,13 +1,10 @@
 # HouMuse- Houston Museum Finder
 ### This app was built for project 5 of Udacity's Front-End Developer Nanodegree
-A neighborhood map built with [Google Maps](https://developers.google.com/maps/documentation/) that shows selected locations of interest. The locations should be filterable, and each location should display information pulled from a third-party API. HouMuse proudly draws data from the [FourSquare](https://developer.foursquare.com/overview/) API.
-
-This project was inspired by my family's trips to the museums in the Houston, TX area. If you are spending time in Houston, be sure to visit the [Houston Museum District](http://www.houmuse.com)!
-
+A neighborhood map built with [Google Maps](https://developers.google.com/maps/documentation/) that shows selected locations of interest. The locations should be filterable, and each location should display information pulled from a third-party API. HouMuse proudly draws data from the [FourSquare](https://developer.foursquare.com/overview/) API. 
 ## Getting Started
 **Run it locally**: clone/download this repository. Open index.html in your browser.
 
-# **See it live**: [HouMuse](http://baker-natalie.github.io/houmuse)
+**See it live**: [HouMuse]()
 
 ## Resources
 - [JavaScript Design Patterns course](https://www.udacity.com/course/javascript-design-patterns--ud989)
@@ -18,9 +15,8 @@ This project was inspired by my family's trips to the museums in the Houston, TX
 - [KnockoutJS Documentation](http://http://knockoutjs.com/documentation/introduction.html)
 - [FourSquare get venue- StackOverflow](http://stackoverflow.com/questions/9090743/foursquare-getting-and-displaying-venues-in-browser)
 - [jQuery.ajax()](http://api.jquery.com/jquery.ajax/)
-- [Hamburger Menu - HTML, CSS & jQuery](https://codepen.io/g13nn/pen/eHGEF) by [Glenn Smith](https://codepen.io/g13nn/)
-- [Handling Google Maps in Async and Fallback- Udacity Forums](https://discussions.udacity.com/t/handling-google-maps-in-async-and-fallback/34282)
-- [Udacity Forums- Neighborhood Map](https://discussions.udacity.com/c/nd001-neighborhood-map-project)
+- [Setting CSS Styles Using JavaScript- Kirupa](https://www.kirupa.com/html5/setting_css_styles_using_javascript.htm)
+- [Toggle Visibility - Show/Hide Anything- Movalog](http://blog.movalog.com/a/javascript-toggle-visibility/)
 
 ## Project Requirements
 - **Interface Design**
