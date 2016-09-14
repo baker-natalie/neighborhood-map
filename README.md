@@ -18,8 +18,7 @@ This project was inspired by my family's trips to the museums in the Houston, TX
 - [KnockoutJS Documentation](http://http://knockoutjs.com/documentation/introduction.html)
 - [FourSquare get venue- StackOverflow](http://stackoverflow.com/questions/9090743/foursquare-getting-and-displaying-venues-in-browser)
 - [jQuery.ajax()](http://api.jquery.com/jquery.ajax/)
-- [Setting CSS Styles Using JavaScript- Kirupa](https://www.kirupa.com/html5/setting_css_styles_using_javascript.htm)
-- [Toggle Visibility - Show/Hide Anything- Movalog](http://blog.movalog.com/a/javascript-toggle-visibility/)
+- [Hamburger Menu - HTML, CSS & jQuery](https://codepen.io/g13nn/pen/eHGEF) by [Glenn Smith](https://codepen.io/g13nn/)
 - [Handling Google Maps in Async and Fallback- Udacity Forums](https://discussions.udacity.com/t/handling-google-maps-in-async-and-fallback/34282)
 - [Udacity Forums- Neighborhood Map](https://discussions.udacity.com/c/nd001-neighborhood-map-project)
 
