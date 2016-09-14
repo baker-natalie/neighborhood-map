@@ -59,6 +59,7 @@ A neighborhood map built with [Google Maps](https://developers.google.com/maps/d
   - Implement additional optimizations that improve performance and UX of the filter functionality.
   - Integrate all app components into a cohesive and enjoyable user experience.
 
-##Future Functionality
-- Filter locations by tag
-- Itenerary planner
+##ToDos
+- [ ] Overflow scroll on dropdown menu
+- [ ] Filter locations by tag
+- [ ] Itenerary planner
