@@ -4,7 +4,7 @@ A neighborhood map built with [Google Maps](https://developers.google.com/maps/d
 ## Getting Started
 **Run it locally**: clone/download this repository. Open index.html in your browser.
 
-**See it live**: [HouMuse]()
+**See it live**: [HouMuse](https://baker-natalie.github.io/houmuse)
 
 ## Resources
 - [JavaScript Design Patterns course](https://www.udacity.com/course/javascript-design-patterns--ud989)
